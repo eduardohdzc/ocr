@@ -21,10 +21,45 @@ namespace Ocr
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IOcrEngine ocrEngine = OcrEngineHandler.createEngine();
+            if (filePath.Text.Equals(""))
+            {
+                resultBox.Text = "Select an image.";
+            }
+            else
+            {
+                IOcrEngine ocrEngine = OcrEngineHandler.createEngine(engineBox.Text);
 
-            ocrEngine.getTextFromImageFile("","","");
+                string result = ocrEngine.getTextFromImageFile(filePath.Text, languageBox.Text, "");
+                resultBox.Text = result;
+            }
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                filePath.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void engineBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(engineBox.Text.Equals("MODI")) {
+                languageBox.Items.Clear();
+                languageBox.Items.Add("ENGLISH");
+                languageBox.Items.Add("FRENCH");
+                languageBox.Items.Add("SPANISH");
+            } else if(engineBox.Text.Equals("Tesseract"))
+            {
+                languageBox.Items.Clear();
+                languageBox.Items.Add("ENGLISH");
+                languageBox.Items.Add("GERMAN");
+                languageBox.Items.Add("SPANISH");
+                languageBox.Items.Add("CHINESE_SIMPLIFIED");
+            }
+            languageBox.SelectedIndex = 0;
         }
     }
 }
