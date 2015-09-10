@@ -34,12 +34,12 @@ namespace Ocr.Wrapper.ModiWrapper
 
             }       
 
-            createMODI(filePath);
-                       
-            throw new NotImplementedException();
+            string text = createMODI(filePath);
+
+            return text;
         }
 
-        private void createMODI(string fileName){
+        private string createMODI(string fileName){
             MODI.Document md = new MODI.Document(); 
             md.Create(fileName); 
             md.OCR(language,  true, true); 
@@ -47,9 +47,10 @@ namespace Ocr.Wrapper.ModiWrapper
             outputText = image.Layout.Text;
             Console.WriteLine(image.Layout.Text); 
             md.Close();
-            throw new NotImplementedException();
+
+            return outputText;
 
         }
-        }
-
     }
+
+ }

@@ -1,13 +1,6 @@
 ﻿using Ocr.Engine;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using Tesseract;
 
 namespace Ocr.Wrapper.TesseractWrapper
@@ -44,20 +37,21 @@ namespace Ocr.Wrapper.TesseractWrapper
 
          }
 
-         createTesseract(filePath);
+         string text = createTesseract(filePath, language);
 
-         throw new NotImplementedException();
+         return text;
      }
-     private void createTesseract(string fileName)
+     private string createTesseract(string fileName, string language)
      {
-         // To DO, Bitmap not recognized
-         //Bitmap image = new Bitmap(fileName);
-         Tesseract.TesseractEngine engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
-         //Tesseract.Page page = engine.Process(image);
-         outputText = page.GetText();
-         Console.WriteLine(outputText);
-         engine.Dispose();
-         throw new NotImplementedException();
+            // To DO, Bitmap not recognized
+            Bitmap image = new Bitmap(fileName);
+            TesseractEngine engine = new TesseractEngine(@"./tessdata", language, EngineMode.Default);
+            Page page = engine.Process(image);
+             outputText = page.GetText();
+             Console.WriteLine(outputText);
+             engine.Dispose();
+
+            return outputText;
 
      }
     }

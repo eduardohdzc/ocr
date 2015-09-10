@@ -13,9 +13,24 @@ namespace Ocr.Engine.Handler
     {
         public static IOcrEngine createEngine()
         {
-            IOcrEngine engineWrapper = new ModiWrapper();
+            //IOcrEngine engineWrapper = new ModiWrapper();
+            IOcrEngine engineWrap = new TesseractWrapper();
             
-            return engineWrapper;
-        }       
+            return engineWrap;
+        }
+
+        // Factory abstract
+        public static IOcrEngine createEngine(string engine)
+        {
+           if(engine.Equals("MODI"))
+            {
+                return new ModiWrapper();
+            }
+           else if(engine.Equals("Tesseract"))
+            {
+                return new TesseractWrapper();
+            }
+            return new TesseractWrapper();
+        }
     }
 }
